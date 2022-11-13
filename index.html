@@ -2,11 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <script src="./map.js"></script>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script>
+      window.onload = function () {
+        var dps = [{x: 10, y:[-20, 20], label:"Prod1"}, {x: 20, y:[-45, 14], label:"Prod2"}, {x: 30, y:[-18, 15], label:"Prod3"}, {x: 40, y:[-30, 45], label:"Prod4"}, {x: 50, y:[-5,30], label:"Prod5"}];   //dataPoints. 
+        var chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          exportEnabled: true,
+          axisX: {
+            title: "Products",
+          },
+          axisY: {
+            title: "Reviews",
+            interval: 10,
+            minimum : -50,
+            maximum : 50
+          }, 
+          data: [{
+            type: "rangeBar",
+            showInLegend: true,
+            toolTipContent: "<b>{label}</b> {y[0]} to {y[1]}",
+            dataPoints: dps
+          }]
+        });
+        function setColor(chart){
+          for(var i = 0; i < chart.options.data.length; i++) {
+            dataSeries = chart.options.data[i];
+            for(var j = 0; j < dataSeries.dataPoints.length; j++){
+              /*if(dataSeries.dataPoints[j].y <= 0)
+                dataSeries.dataPoints[j].color = 'rgb(170, 0, 0)';*/
+                console.log(dataSeries.dataPoints[j].y);
+            }
+          }
+        }
+        chart.render();
+      } 
+    </script>
   </head>
   <body>
     <div class="container">
@@ -22,7 +58,9 @@
       <div class="container">
         <div class="row gx-5">
           <div class="col-6 py-2 rounded shadow border">
-            <center><h5 class="">Density Map of Reviews</h5></center>
+            <center><h5 class="">Bar graph</h5></center>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>           
           </div>
 
           <div class="col-6 py-2 rounded shadow border">
@@ -65,5 +103,6 @@
     </div>
     <!--div class="b-example-divider"></div-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
   </body>
 </html>
