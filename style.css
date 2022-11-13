@@ -16,11 +16,16 @@
 
 .heading {
   font-weight: 700;
+  font-size: 1.5em;
 }
 
 .custom-header {
     background-color: #012A2D;
     color: #fff;
+}
+
+.nav-link {
+  color: #003F2D !important;
 }
 
 .pro-name {

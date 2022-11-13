@@ -9,6 +9,13 @@ function initMap() {
         region: 'US'
         
     });
+
+    new google.maps.Marker({
+        position: {lat: 34.0522, lng: -118.2437},
+        map,
+        title: "Hello World!",
+    });
+
     
     map.addListener('click', function(e) {
         const jsonCities = '{"Harris": {"totalNumber": "+8283", "numberOfPositveReviews": 8283, "numberOfNegativeReviews": 2793, "numberOfNeutralReviews": 2149}, "Los Angeles": {"totalNumber": "+6741", "numberOfPositveReviews": 6741, "numberOfNegativeReviews": 0, "numberOfNeutralReviews": 2190}, "Cook": {"totalNumber": "+11933", "numberOfPositveReviews": 11933, "numberOfNegativeReviews": 1848, "numberOfNeutralReviews": 1092}, "New York": {"totalNumber": "+3533", "numberOfPositveReviews": 3533, "numberOfNegativeReviews": 2458, "numberOfNeutralReviews": 608}, "Seattle": {"totalNumber": "+4976", "numberOfPositveReviews": 4976, "numberOfNegativeReviews": 1929, "numberOfNeutralReviews": 539}}';
