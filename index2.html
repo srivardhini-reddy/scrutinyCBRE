@@ -7,6 +7,8 @@
     <title>Document</title>
     <script src="./map1.js"></script>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
     <link rel="stylesheet" href="./style.css">
@@ -48,18 +50,18 @@
               <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
               <script>
                 window.onload = function () {
-                  var dps = [{x: 10, y:-20, label:"Prod1"}, {x: 20, y:14, label:"Prod2"}, {x: 30, y:15, label:"Prod3"}, {x: 40, y:-30, label:"Prod4"}, {x: 50, y:-5, label:"Prod5"}];   //dataPoints. 
+                  var dps = [];//= [{x: 10, y:-2, label:"Prod1"}, {x: 20, y: 4, label:"Prod2"}, {x: 30, y: 9, label:"Prod3"}, {x: 40, y:-7, label:"Prod4"}, {x: 50, y:-3, label:"Prod5"}];   //dataPoints. 
                   var chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
                     exportEnabled: true,
                     axisX: {
-                      title: "Products",
+                      title: "KPI's",
                     },
                     axisY: {
-                      title: "Reviews",
-                      interval: 10,
-                      minimum : -50,
-                      maximum : 50
+                      title: "Ratings",
+                      interval: 1,
+                      minimum : -10,
+                      maximum : 10
                     }, 
                     data: [{
                       type: "stackedBar",
@@ -67,22 +69,28 @@
                       dataPoints: dps
                     }]
                   });
+                  $.getJSON("data.json", function(data) {
+                    $.each(data, function(key, value){
+                      console.log(value[0], parseInt(value[1])); // this will show the info it in firebug console
+                    });
+                  });
                   setColor(chart);
                   chart.render();
-                } 
+        
                 function setColor(chart){
                     for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
-                      if(chart.options.data[0].dataPoints[i].y < -10 ){
-                        chart.options.data[0].dataPoints[i].color = 'rgb(170, 0, 0)';
+                      if(chart.options.data[0].dataPoints[i].y < -3 ){
+                        chart.options.data[0].dataPoints[i].color = 'rgb(254, 96, 96)';
                       }
-                      else if(chart.options.data[0].dataPoints[i].y > 10 ){
-                        chart.options.data[0].dataPoints[i].color = 'rgb(0, 170, 0)';
+                      else if(chart.options.data[0].dataPoints[i].y > 3 ){
+                        chart.options.data[0].dataPoints[i].color = 'rgb(96, 254, 96)';
                       }
                       else{
-                        chart.options.data[0].dataPoints[i].color = 'rgb(0, 0, 170)';
+                        chart.options.data[0].dataPoints[i].color = 'rgb(96, 96, 254)';
                       }
                     }
                   }
+                }
               </script>
             </div>
           </div>
