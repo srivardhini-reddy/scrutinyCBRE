@@ -3,6 +3,17 @@
   src: url("fonts/test-financier-display-bold.woff2") format('woff');
 }
 
+@font-face {
+  font-family: "submain";
+  src: url("fonts/calibre.woff2") format('woff');
+}
+
+
+* {
+  font-family: submain;
+  font-size: large;
+}
+
 .custom-header {
     background-color: #012A2D;
     color: #fff;
