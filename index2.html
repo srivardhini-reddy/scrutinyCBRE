@@ -83,6 +83,20 @@
     </script>
 </head>
 <body>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel"></h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="myInput">
+          <div id="empdetails"></div>
+          <div id="keywords"></div>
+        </div>
+      </div>
+    </div>
+  </div>
     <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
@@ -211,7 +225,7 @@ function openCity(evt, cityName) {
                     </ul>
                     <ul class="nav">
                         <li class="px-2 active" onclick="location.reload()" class="nav-item"><a href="#">Reset</a></li>
-                    </ul>
+                    </ul>                    
                     </div>
                 </nav>
             
