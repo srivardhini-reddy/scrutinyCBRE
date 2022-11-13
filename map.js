@@ -2,6 +2,53 @@ var map;
 var markers = [];
 var circles = [];
 
+var empdata = {
+    "Harris":{"list":
+        [{"name":"Tom Harris","Empid":"X22343","Rating":"9.3"},
+         {"name":"Sam Willson","Empid":"H45743","Rating":"8.6"},
+         {"name":"Martha Colbey","Empid":"F25783","Rating":"8.5"},
+         {"name":"Tyler Hunt","Empid":"K98343","Rating":"8.2"},
+         {"name":"Don Smith","Empid":"Y20943","Rating":"8.0"},
+         ],
+         "keywords":["Realtor","Best neighborhoods","Buying vs building a house","Closing costs","open houses work","Best Realtor","Best time to sell a house","look for when buying a house","Closing costs for seller"]
+    },
+    "Cook":{"list":
+        [{"name":"Cathy Backer","Empid":"X78923","Rating":"9.8"},
+         {"name":"Robert Dawm","Empid":"U82343","Rating":"8.9"},
+         {"name":"Sheldon Cooper","Empid":"D48343","Rating":"8.7"},
+         {"name":"Kamla Fransis","Empid":"K52398","Rating":"8.5"},
+         {"name":"Micheal Les","Empid":"F89343","Rating":"8.0"},
+         ],
+         "keywords":["cost to sell a house","Curb appeal","get preapproved for a home loan","my house worth?","Best time to buy a house","How long does it take to sell a house?"]
+    },
+    "Los Angeles":{"list":
+        [{"name":"Peter Hopper","Empid":"X79923","Rating":"9.8"},
+         {"name":"Erick Timber","Empid":"U33343","Rating":"8.5"},
+         {"name":"Bruce Cooper","Empid":"D48943","Rating":"8.3"},
+         {"name":"Peter Ganther","Empid":"K52358","Rating":"8.2"},
+         {"name":"Snooper camel","Empid":"F89433","Rating":"8.0"},
+         ],
+         "keywords":["Best time to buy a house","FHA loans","sell your house without a Realtor?","Staging a house","FHA vs conventional loans"
+,"good time to buy a house","get preapproved for a home loan"]
+    },
+    "New York":{"list":
+        [{"name":"Harry Norm","Empid":"H59923","Rating":"9.9"},
+         {"name":"Matt Timber","Empid":"U33043","Rating":"9.7"},
+         {"name":"Bradely Deu","Empid":"D40743","Rating":"8.8"},
+         {"name":"Charles Watson","Empid":"K52848","Rating":"8.5"},
+         {"name":"Elon Dusk","Empid":"F89433","Rating":"8.4"},
+         ],
+         "keywords": ["cost to sell a house","Curb appeal","get preapproved for a home loan","my house worth?","Best time to buy a house","How long does it take to sell a house?"]
+    }
+}  
+
+var myModal = document.getElementById('exampleModal');
+    var myInput = document.getElementById('myInput');
+    myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus();
+    });
+
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), { 
         zoom: 4, 
@@ -35,9 +82,10 @@ function initMap() {
                 console.log(city)
                 const sign = cities[city].totalNumber[0];
                 city = JSON.parse(text).results[0].locations[0].adminArea4;
-                showContent(marker, cities[city], e.latLng);
+                showContent(marker,city, cities[city], e.latLng);
                 colorCircle(marker, sign, e.latLng, cities[city].numberOfPositveReviews)
                 console.log(cities[city].totalNumber[0]);
+                getEmpData(city);
             });
         };
 
@@ -53,10 +101,61 @@ function addMarker(position) {
   return marker;
 }
 
+function getEmpData(city) {
+    //console.log(empdata.Harris);
+    var list,keys;
+    Object.keys(empdata[city]).forEach(function(key){
+        list = empdata[city].list;
+        keys = empdata[city].keywords;
+    });
+    document.getElementById("exampleModalLabel").innerHTML=city
+    var emp = document.getElementById("empdetails");
+        var table="";
+        table += 
+        `<table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Employee name</th>
+                <th scope="col">Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+        `;
+        for (var i=0; i < list.length; i++){
+            table +=`  
+            <tr>         
+              <td>`+ list[i].name+`</td>
+              <td>`+ list[i].Rating+`</td>
+              </tr>
+              `;
+        }
+        table+=`     
+          </tbody>
+        </table>`;
+        emp.innerHTML = table;
+    var keywords= document.getElementById("keywords");
+    var kw="";
+    kw+=`<div>
+    <h4>Keywords</h4>
+    <p>`;
+    for( var i=0; i < keys.length; i++){
+        kw+=keys[i]+`<br>`;
+    }
+    kw+=`</p></div>`;
+    keywords.innerHTML=kw;
+}
+
+
+
 // This example displays a marker at the center of Australia.
 // When the user clicks the marker, an info window opens.
-function showContent(marker, details) {
-    const contentString = `<ul class="list-group m-2 text-start"><li class="aligned list-group-item">Total # of reviews: ` + details.totalNumber + `<br>` + `<li class="aligned list-group-item">Total # of positive reviews: ` + details.numberOfPositveReviews + `<br>` + `<li class="aligned list-group-item">Total # of Neutral reviews: ` + details.numberOfNeutralReviews + `<br>` + `<li class="aligned list-group-item">Total # of Negative reviews: ` + details.numberOfNegativeReviews + `</ul>` + `<div><a href="">More Details</a></div>`;
+function showContent(marker,city, details) {
+    const contentString = `<h3>`+city+`</h3><ul class="list-group m-2 text-start"><li class="aligned list-group-item">Total # of reviews: ` 
+    + details.totalNumber + `<br>` + `<li class="aligned list-group-item">Total # of positive reviews: ` 
+    + details.numberOfPositveReviews + `<br>` + `<li class="aligned list-group-item">Total # of Neutral reviews: ` 
+    + details.numberOfNeutralReviews + `<br>` + `<li class="aligned list-group-item">Total # of Negative reviews: ` 
+    + details.numberOfNegativeReviews + `</ul>` + `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">More details</button>`;
+    
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
