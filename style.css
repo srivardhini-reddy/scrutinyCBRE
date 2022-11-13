@@ -9,6 +9,7 @@
 }
 
 
+
 * {
   font-family: submain;
   font-size: large;
@@ -17,6 +18,22 @@
 .heading {
   font-weight: 700;
   font-size: 1.5em;
+}
+
+
+button {
+  background-color: #003F2D;
+  color: #FFF;
+  border: none;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+}
+
+button:hover {
+  color: #003F2D;
+  background-color: #17E88F;
 }
 
 .custom-header {

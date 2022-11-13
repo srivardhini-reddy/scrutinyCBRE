@@ -154,7 +154,7 @@ function showContent(marker,city, details) {
     + details.totalNumber + `<br>` + `<li class="aligned list-group-item">Total # of positive reviews: ` 
     + details.numberOfPositveReviews + `<br>` + `<li class="aligned list-group-item">Total # of Neutral reviews: ` 
     + details.numberOfNeutralReviews + `<br>` + `<li class="aligned list-group-item">Total # of Negative reviews: ` 
-    + details.numberOfNegativeReviews + `</ul>` + `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">More details</button>`;
+    + details.numberOfNegativeReviews + `</ul>` + `<button type="button" class="button-custom" data-bs-toggle="modal" data-bs-target="#exampleModal">Details → </button>`;
     
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
