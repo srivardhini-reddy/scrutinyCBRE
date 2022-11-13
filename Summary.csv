@@ -1,0 +1,16 @@
+Overall,,Location,NumberOfPositveReviews,NumberOfNegativeReviews,NumberOfNeutralReviews
+Positive,6748,Houston,13352,2596,1536
+Negative,2837,Los Angeles,16771,3895,5438
+Neutral,2744,New York,13566,1896,1681
+Customer,,Chicago,11012,2354,4606
+Positive,560,Seattle,10495,4719,1575
+Negative,250,KPI's overall,,,
+Neutral,234,CSAT,4.732743937,,
+Survey,,CostSatisfactionIndex,6,,
+Positive,560,NPS,-9.791196388,,
+Negative,234,,,,
+Neutral,260,,,,
+Social,,,,,
+Positive,31,,,,
+Negative,7,,,,
+Neutral,2,,,,

@@ -21,13 +21,14 @@
           exportEnabled: true,
           axisX: {
             title: "KPI's",
-            labelFontSize : 10
+            labelFontSize : 10,
           },
           axisY: {
             title: "Ratings",
             interval: 1,
             minimum : -10,
-            maximum : 10
+            maximum : 10,
+            gridThickness: 0
           }, 
           data: [{
             type: "stackedBar",
@@ -51,25 +52,24 @@
           }
         }
 
-        var dps2 = [{x:10, y: 20, label:"2018"}, {x: 20, y: 40, label:"2019"}, {x :30, y: 90, label:"2020"}, {x: 40, y: 70, label:"2021"}, { x: 50, y: 30, label:"2022"}];   //dataPoints. 
+        var dps2 = [{x:10, y: 20, label:"2018"}, {x: 20, y: 60, label:"2019"}, {x :30, y: 40, label:"2020"}, {x: 40, y: 50, label:"2021"}, { x: 50, y: 30, label:"2022"}, { x: 60, y: 90, label:"2024"}];   //dataPoints. 
         var len=dps2.length;
         var chart2 = new CanvasJS.Chart("chartContainer2", {
           animationEnabled: true,
           exportEnabled: true,
           toolTip:{   
-            content: "{x}: {y}"      
+            content: "{y}"      
           },
           axisX: {
             title: "Year",
             interval: 10,
-            minimum : 0,
-            maximum : 55
           },
           axisY: {
             title: "Ratings",
             minimum :0,
             maximum :100,
-            interval :10            
+            interval :10,   
+            gridThickness: 0        
           }, 
           data: [{
             type: "line",
@@ -106,8 +106,6 @@
       <h3 class="pro-name">Scrutiny</h2>
     </div>
   </header>
-
-  <div class="b-example-divider"></div>
 
     <div class="container overflow-hidden text-center">
         <div class="row gy-5">

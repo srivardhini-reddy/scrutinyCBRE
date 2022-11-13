@@ -1,0 +1,15 @@
+Overall
+dict_keys(['Negative', 'Positive', 'Neutral'])
+dict_values([2845, 6680, 2752])
+
+Survey
+dict_keys(['Positive', 'Negative', 'Neutral'])
+dict_values([556, 239, 251])
+
+Customer
+dict_keys(['Positive', 'Neutral', 'Negative'])
+dict_values([556, 249, 251])
+
+Social
+dict_keys(['Negative', 'Positive', 'Neutral'])
+dict_values([7, 31, 2])
