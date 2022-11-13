@@ -13,6 +13,74 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
     <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script>
+      window.onload = function () {
+        var dps1 = [{x: 10, y:-2, label:"CSAT"}, {x: 20, y: 4, label:"Overall Customer Sentiment"}, {x: 30, y: 9, label:"NPS"}, {x: 40, y:-7, label:"Lost Satisfaction"}, {x: 50, y:-3, label:"Prod5"}];   //dataPoints. 
+        var chart1 = new CanvasJS.Chart("chartContainer1", {
+          animationEnabled: true,
+          exportEnabled: true,
+          axisX: {
+            title: "KPI's",
+            labelFontSize : 10
+          },
+          axisY: {
+            title: "Ratings",
+            interval: 1,
+            minimum : -10,
+            maximum : 10
+          }, 
+          data: [{
+            type: "stackedBar",
+            toolTipContent: "{y}",
+            dataPoints: dps1
+          }]
+        });
+        setColor(chart1);
+
+      function setColor(chart){
+          for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
+            if(chart.options.data[0].dataPoints[i].y < -3 ){
+              chart.options.data[0].dataPoints[i].color = 'rgb(254, 96, 96)';
+            }
+            else if(chart.options.data[0].dataPoints[i].y > 3 ){
+              chart.options.data[0].dataPoints[i].color = 'rgb(96, 254, 96)';
+            }
+            else{
+              chart.options.data[0].dataPoints[i].color = 'rgb(96, 96, 254)';
+            }
+          }
+        }
+
+        var dps2 = [{x:10, y: 20, label:"2018"}, {x: 20, y: 40, label:"2019"}, {x :30, y: 90, label:"2020"}, {x: 40, y: 70, label:"2021"}, { x: 50, y: 30, label:"2022"}];   //dataPoints. 
+        var len=dps2.length;
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+          animationEnabled: true,
+          exportEnabled: true,
+          toolTip:{   
+            content: "{x}: {y}"      
+          },
+          axisX: {
+            title: "Year",
+            interval: 10,
+            minimum : 0,
+            maximum : 55
+          },
+          axisY: {
+            title: "Ratings",
+            minimum :0,
+            maximum :100,
+            interval :10            
+          }, 
+          data: [{
+            type: "line",
+            toolTipContent: "{y}",
+            dataPoints: dps2
+          }]
+        });        
+        chart1.render();
+        chart2.render();
+      }
+    </script>
 </head>
 <body>
     <nav class="py-2 bg-light border-bottom">
@@ -45,56 +113,15 @@
         <div class="row gy-5">
             <div class="col-6">
             <div class="p-3 border bg-light">Bar graph of Reviews
-              <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+              <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
               <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-              <script>
-                window.onload = function () {
-                  var dps = [];//= [{x: 10, y:-2, label:"Prod1"}, {x: 20, y: 4, label:"Prod2"}, {x: 30, y: 9, label:"Prod3"}, {x: 40, y:-7, label:"Prod4"}, {x: 50, y:-3, label:"Prod5"}];   //dataPoints. 
-                  var chart = new CanvasJS.Chart("chartContainer", {
-                    animationEnabled: true,
-                    exportEnabled: true,
-                    axisX: {
-                      title: "KPI's",
-                    },
-                    axisY: {
-                      title: "Ratings",
-                      interval: 1,
-                      minimum : -10,
-                      maximum : 10
-                    }, 
-                    data: [{
-                      type: "stackedBar",
-                      toolTipContent: "{y}",
-                      dataPoints: dps
-                    }]
-                  });
-                  $.getJSON("data.json", function(data) {
-                    $.each(data, function(key, value){
-                      console.log(value[0], parseInt(value[1])); // this will show the info it in firebug console
-                    });
-                  });
-                  setColor(chart);
-                  chart.render();
-        
-                function setColor(chart){
-                    for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
-                      if(chart.options.data[0].dataPoints[i].y < -3 ){
-                        chart.options.data[0].dataPoints[i].color = 'rgb(254, 96, 96)';
-                      }
-                      else if(chart.options.data[0].dataPoints[i].y > 3 ){
-                        chart.options.data[0].dataPoints[i].color = 'rgb(96, 254, 96)';
-                      }
-                      else{
-                        chart.options.data[0].dataPoints[i].color = 'rgb(96, 96, 254)';
-                      }
-                    }
-                  }
-                }
-              </script>
             </div>
           </div>
           <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
+            <div class="p-3 border bg-light">Line graph
+              <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+              <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            </div>
             </div>
             <div class="col-6">
             <div class="p-3 border bg-light">Trends with Data Distribution</div>
