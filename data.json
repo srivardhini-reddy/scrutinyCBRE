@@ -1,0 +1,9 @@
+{
+    "KPI's":[
+        {"name":"Prod1", "rating":-2}, 
+        {"name":"Prod2", "rating":4}, 
+        {"name":"Prod3", "rating":9}, 
+        {"name":"Prod1", "rating":-7}, 
+        {"name":"Prod1", "rating":-3}
+    ]    
+}
