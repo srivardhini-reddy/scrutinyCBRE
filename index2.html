@@ -36,7 +36,6 @@
           }]
         });
         setColor(chart1);
-        chart1.render();
 
       function setColor(chart){
           for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
@@ -52,15 +51,19 @@
           }
         }
 
-        var dps2 = [{x: 10, y: 20}, {x: 20, y: 40}, {x: 30, y: 90}, {x: 40, y: 70}, {x: 50, y: 30}];   //dataPoints. 
+        var dps2 = [{x:10, y: 20, label:"2018"}, {x: 20, y: 40, label:"2019"}, {x :30, y: 90, label:"2020"}, {x: 40, y: 70, label:"2021"}, { x: 50, y: 30, label:"2022"}];   //dataPoints. 
+        var len=dps2.length;
         var chart2 = new CanvasJS.Chart("chartContainer2", {
           animationEnabled: true,
           exportEnabled: true,
+          toolTip:{   
+            content: "{x}: {y}"      
+          },
           axisX: {
             title: "Year",
-            interval: 1,
-            minimum : 2018,
-            maximum : 2022
+            interval: 10,
+            minimum : 0,
+            maximum : 55
           },
           axisY: {
             title: "Ratings",
@@ -73,7 +76,8 @@
             toolTipContent: "{y}",
             dataPoints: dps2
           }]
-        });
+        });        
+        chart1.render();
         chart2.render();
       }
     </script>
@@ -114,7 +118,7 @@
             </div>
           </div>
           <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding
+            <div class="p-3 border bg-light">Line graph
               <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
               <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
             </div>
