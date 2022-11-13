@@ -10,7 +10,8 @@ function initMap() {
     });
     
     map.addListener('click', function(e) {
-        addMarker(e.latLng);
+        marker = addMarker(e.latLng);
+        showContent(marker)
     });
 }
 
@@ -43,5 +44,33 @@ function addMarker(position) {
      var index = markers.indexOf(marker);
       circles[index].setMap(null);
   });
+
   return marker;
 }
+
+
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+function showContent(marker) {
+  const contentString = ;
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+    ariaLabel: "Uluru",
+  });
+  
+
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+    });
+  });
+}
+
+window.initMap = initMap;
+
