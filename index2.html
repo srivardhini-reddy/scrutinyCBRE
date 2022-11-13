@@ -43,9 +43,49 @@
     <div class="container overflow-hidden text-center">
         <div class="row gy-5">
             <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
+            <div class="p-3 border bg-light">Custom column padding
+              <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+              <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+              <script>
+                window.onload = function () {
+                  var dps = [{x: 10, y:[-20, 20], label:"Prod1"}, {x: 20, y:[-45, 14], label:"Prod2"}, {x: 30, y:[-18, 15], label:"Prod3"}, {x: 40, y:[-30, 45], label:"Prod4"}, {x: 50, y:[-5,30], label:"Prod5"}];   //dataPoints. 
+                  var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    axisX: {
+                      title: "Products",
+                    },
+                    axisY: {
+                      title: "Reviews",
+                      interval: 10,
+                      minimum : -50,
+                      maximum : 50
+                    }, 
+                    data: [{
+                      type: "rangeBar",
+                      toolTipContent: "<b>{label}</b> {y[0]} to {y[1]}",
+                      dataPoints: dps
+                    }]
+                  });
+                  //setColor(chart);
+                  chart.render();
+                } 
+                var dataSeries;
+                function setColor(chart){
+                    console.log(chart.options.data);
+                    dataSeries = chart.options.data[0].dataPoints;
+                    console.log(dataSeries);
+                    for(var i = 0; i < dataSeries.length; i++) {
+                      console.log(dataSeries[i].y[0])
+                      if(dataSeries[i].y[0] <= 0 ){
+                        dataSeries[i].y[0].color = 'rgb(170, 0, 0)';
+                      }
+                    }
+                  }
+              </script>
             </div>
-            <div class="col-6">
+          </div>
+          <div class="col-6">
             <div class="p-3 border bg-light">Custom column padding</div>
             </div>
             <div class="col-6">
