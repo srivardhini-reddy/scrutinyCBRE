@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "main";
+  src: url("fonts/test-financier-display-bold.woff2") format('woff');
+}
+
+.custom-header {
+    background-color: #012A2D;
+    color: #fff;
+}
+
+.pro-name {
+    font-family: main;
+    font-size: 2em;
+}
