@@ -1,108 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <!-- <script src="./map.js"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Scrutiny</title>
+    <script src="./map.js"></script>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+    <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script>
       window.onload = function () {
-        var dps = [{x: 10, y:[-20, 20], label:"Prod1"}, {x: 20, y:[-45, 14], label:"Prod2"}, {x: 30, y:[-18, 15], label:"Prod3"}, {x: 40, y:[-30, 45], label:"Prod4"}, {x: 50, y:[-5,30], label:"Prod5"}];   //dataPoints. 
-        var chart = new CanvasJS.Chart("chartContainer", {
+        var dps1 = [{x: 10, y:4.732, label:"CSAT"}, {x: 20, y: 4, label:"Overall Customer Sentiment"}, {x: 30, y: -9.79, label:"Net Promoter Score"}, {x: 40, y:6, label:"Cost Satisfaction"}, {x: 50, y:-3, label:"Prod5"}];   //dataPoints. 
+        var chart1 = new CanvasJS.Chart("chartContainer1", {
           animationEnabled: true,
           exportEnabled: true,
           axisX: {
-            title: "Products",
+            title: "KPI(s)",
+            labelFontSize : 10,
           },
           axisY: {
-            title: "Reviews",
-            interval: 10,
-            minimum : -50,
-            maximum : 50
+            title: "Ratings",
+            interval: 1,
+            minimum : -10,
+            maximum : 10,
+            gridThickness: 0
           }, 
           data: [{
-            type: "rangeBar",
-            showInLegend: true,
-            toolTipContent: "<b>{label}</b> {y[0]} to {y[1]}",
-            dataPoints: dps
+            type: "stackedBar",
+            toolTipContent: "{y}",
+            dataPoints: dps1
           }]
         });
-        function setColor(chart){
-          for(var i = 0; i < chart.options.data.length; i++) {
-            dataSeries = chart.options.data[i];
-            for(var j = 0; j < dataSeries.dataPoints.length; j++){
-              /*if(dataSeries.dataPoints[j].y <= 0)
-                dataSeries.dataPoints[j].color = 'rgb(170, 0, 0)';*/
-                console.log(dataSeries.dataPoints[j].y);
+        setColor(chart1);
+
+      function setColor(chart){
+          for(var i = 0; i < chart.options.data[0].dataPoints.length; i++) {
+            if(chart.options.data[0].dataPoints[i].y < -3 ){
+              chart.options.data[0].dataPoints[i].color = 'rgb(254, 96, 96)';
+            }
+            else if(chart.options.data[0].dataPoints[i].y > 3 ){
+              chart.options.data[0].dataPoints[i].color = 'rgb(96, 254, 96)';
+            }
+            else{
+              chart.options.data[0].dataPoints[i].color = 'rgb(96, 96, 254)';
             }
           }
         }
-        chart.render();
-      } 
+
+        var dps2 = [{x:10, y: 20, label:"2018"}, {x: 20, y: 60, label:"2019"}, {x :30, y: 40, label:"2020"}, {x: 40, y: 50, label:"2021"}, { x: 50, y: 30, label:"2022"}, { x: 60, y: 90, label:"2024"}];   //dataPoints. 
+        var len=dps2.length;
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+          animationEnabled: true,
+          exportEnabled: true,
+          toolTip:{   
+            content: "{y}"      
+          },
+          axisX: {
+            title: "Year",
+            interval: 10,
+          },
+          axisY: {
+            title: "Ratings",
+            minimum :0,
+            maximum :100,
+            interval :10,   
+            gridThickness: 0        
+          }, 
+          data: [{
+            type: "line",
+            toolTipContent: "{y}",
+            dataPoints: dps2
+          }]
+        });        
+        chart1.render();
+        chart2.render();
+      }
     </script>
-  </head>
-  <body>
-    <div class="container">
-      <header class="d-flex align-items-center justify-content-center py-3">
-        <ul class="nav col-flex justify-content-center">
-          <li><a href="#" class="nav-link px-2 link-secondary ">Home</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark ">Features</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark ">Pricing</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark ">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark ">About</a></li>
-        </ul>
-      </header>
-      <div class="container px-4 text-center">
-        <div class="row gx-5">
-          <div class="col rounded shadow border">
-            <center><h5 class="p-3">Density Map of Reviews</h5></center>
-          </div>
-
-          <div class="col rounded shadow border">
-            <center><h5 class="p-3">Density Map of Reviews</h5></center>
-          </div>
-        </div>
-        </div>
-        <div class="container">
-        
-        <div class="row gx-5">
-          <div class="col rounded shadow border">
-            <center><h5 class="p-3">Density Map of Reviews</h5></center>
-          </div>
-
-          <div class="col rounded shadow border">
-            <center><h5 class="p-3">Density Map of Reviews</h5></center>
-            
-            <style>
-              #map {
-                height: 500px;
-                width: 100%;
-              }
-            </style>
-            <div id="map"></div>
-            <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs5GX_NF3aH0_SWevJN7hIqb7CuhAXWHk&region=US&language=en&callback=initMap">
-            </script>
-            <center><button type="button" onclick="location.reload()" id="reset_state" class="btn btn-secondary mt-3">Reset</button></center>
-            <script>
-              var infowindow = new google.maps.InfoWindow({
-                content: ''
-              });
-              function reset() {
-                infowindow.close();
-                map.fitBounds(bounds);
-              }
-            </script>
-          </div>
-        </div>
-      </div>
+</head>
+<body>
+    <nav class="py-2 bg-light border-bottom">
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
+      </ul>
+      <ul class="nav">
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Login</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Sign up</a></li>
+      </ul>
     </div>
+  </nav>
+  <header class="py-3 mb-4 border-bottom custom-header">
+    <div class="container d-flex flex-wrap justify-content-center">
+      <a href="/" class="d-flex align-items-center me-lg-auto text-dark text-decoration-none">
+        <span class=""><img width="50%" src="./cbre.png"/></span>
+      </a>
+      <h3 class="pro-name">Scrutiny</h2>
+    </div>
+  </header>
+
+    <div class="container overflow-hidden text-center">
+        <div class="row gy-5">
+            <div class="col-6 rounded p-3">
+            <div class="p-3 border"><strong>Bar graph of Reviews</strong> <br><br>
+              <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+              <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            </div>
+          </div>
+          <div class="col-6 rounded p-3">
+            <div class="p-3 border"><strong>Line graph</strong> <br><br>
+              <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+              <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            </div>
+          </div>
+          <div class="col-6 rounded border">  
+            <div class="p-3"><strong>Sentiment Trend on Reviews</strong> <br>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="total-tab" data-bs-toggle="tab" data-bs-target="#total" type="button" role="tab" aria-controls="total" aria-selected="true">Total Reviews</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="customers-tab" data-bs-toggle="tab" data-bs-target="#customer" type="button" role="tab" aria-controls="customer" aria-selected="false">Contact Centers</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="centers-tab" data-bs-toggle="tab" data-bs-target="#centers" type="button" role="tab" aria-controls="centers" aria-selected="false">Social Media</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="surveys-tab" data-bs-toggle="tab" data-bs-target="#surveys" type="button" role="tab" aria-controls="surveys" aria-selected="false">Survey Feedback</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="total" role="tabpanel" aria-labelledby="home-tab">
+                <img width="auto" src="./total.svg"/>
+              </div>
+              <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="profile-tab">
+                <img src="./contact.svg"/>
+              </div>
+              <div class="tab-pane fade" id="centers" role="tabpanel" aria-labelledby="contact-tab">
+                <img src="./social.svg"/>
+              </div>
+              <div class="tab-pane fade" id="surveys" role="tabpanel" aria-labelledby="contact-tab">
+                <img src="./surveys.svg"/>
+              </div>
+            </div>
+            </div>
+          </div>
+            <div class="col-6 rounded p-3">
+            <div class="p-3 border">
+                <nav class="py-2 border-bottom">
+                    <div class="container d-flex flex-wrap">
+                    <ul class="nav me-auto">
+                        <li class="px-2 active" class="nav-item"><div class="heading">Density Map of Reviews</div></li>
+                    </ul>
+                    <ul class="nav">
+                        <li class="px-2 active" onclick="location.reload()" class="nav-item"><a href="#">Reset</a></li>
+                    </ul>
+                    </div>
+                </nav>
+            
+                <style>
+                #map {
+                    height: 500px;
+                    width: 100%;
+                }
+                </style>
+                <div id="map"></div>
+                <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs5GX_NF3aH0_SWevJN7hIqb7CuhAXWHk&region=US&language=en&callback=initMap">
+                </script>
+                <script>
+                function reset() {
+                    infowindow.close();
+                    map.fitBounds(bounds);
+                }
+                </script>
+                </div>
+            </div>
+        </div>
     </div>
     <!--div class="b-example-divider"></div-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     
-  </body>
+</body>
 </html>
